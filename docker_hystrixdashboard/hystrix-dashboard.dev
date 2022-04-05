@@ -1,0 +1,9 @@
+FROM adoptopenjdk:11-jre-hotspot
+ENV SPRING_APPLICATION_NAME=hystrixdashboard
+ENV SERVER_PORT=80
+ENV EUREKA_CLIENT_REGISTER-WITH-EUREKA=true
+ENV EUREKA_CLIENT_FETCH-REGISTRY=true
+ENV EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE=http://eureka/eureka/
+ARG JAR_FILE=*.jar
+COPY ${JAR_FILE} hystrix_dashboard-1.0-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "hystrix_dashboard-1.0-SNAPSHOT.jar"]

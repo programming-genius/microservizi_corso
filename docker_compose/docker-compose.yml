@@ -1,0 +1,102 @@
+version: '3'
+
+services:
+  auth:
+    build:
+      context: .
+      dockerfile: auth.dev
+    container_name: auth
+    depends_on:
+      - postgres_auth
+    ports:
+      - '83:80'
+    networks:
+      - mobile_net
+          
+  postgres_auth:
+    container_name: postgres_auth 
+    build:
+      context: .
+      dockerfile: postgres_auth.dev
+    ports:
+      - '5432:5432'
+    networks:
+      - mobile_net
+      
+  anagrafica:
+    build:
+      context: .
+      dockerfile: anagrafica.dev
+    container_name: anagrafica
+    depends_on:
+      - postgres_anagrafica
+    ports:
+      - '82:80'
+    networks:
+      - mobile_net
+  
+  postgres_anagrafica:
+    container_name: postgres_anagrafica 
+    build:
+      context: .
+      dockerfile: postgres_anagrafica.dev
+    ports:
+      - '5433:5432'
+    networks:
+      - mobile_net
+      
+  mobile:
+    build:
+      context: .
+      dockerfile: sim.dev
+    container_name: mobile
+    depends_on:
+      - postgres_mobile
+    ports:
+      - '84:80'
+    networks:
+      - mobile_net
+          
+  postgres_mobile:
+    container_name: postgres_mobile 
+    build:
+      context: .
+      dockerfile: sim.dev
+    ports:
+      - '5434:5432'
+    networks:
+      - mobile_net
+
+  registration:
+    build:
+      context: .
+      dockerfile: registration.dev
+    container_name: registration
+    ports:
+      - '85:80'
+    networks:
+      - mobile_net
+
+  operator:
+    build:
+      context: .
+      dockerfile: operator.dev
+    container_name: operator
+    ports:
+      - '86:80'
+    networks:
+      - mobile_net
+  
+  hystrix-dashboard:
+    build:
+      context: .
+      dockerfile: hystrix-dashboard.dev
+    container_name: hystrix-dashboard
+    ports:
+      - '87:80'
+    networks:
+      - mobile_net
+
+networks: 
+  mobile_net:
+    external: true
