@@ -57,4 +57,12 @@ Dopo la generazione dei vari file jar da inserire nella cartella docker compose:
 
 docker network create mobile_net
 
+sudo docker build . -f eureka.dev -t eureka
+
+sudo docker run --net mobile_net -d -p 80:80 --name eureka eureka
+
+sudo docker build . -f zuul.dev -t zuul
+
+sudo docker run --net mobile_net -d -p 81:80 --name zuul zuul
+
 sudo docker-compose up -d
