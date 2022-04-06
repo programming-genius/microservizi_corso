@@ -1,5 +1,7 @@
 # Microservizi
 
+UTILIZZO DOCKER:
+
 Dopo la compilazione dei file jar dei vari progetti da inserire nelle cartelle:
 
 docker network create mobile_net
@@ -48,6 +50,11 @@ sudo docker build . -f hystrix-dashboard.dev -t hystrix-dashboard
 
 sudo docker run --net mobile_net -d -p 87:80 --name hystrix-dashboard hystrix-dashboard
 
+
+UTILIZZO DOCKER COMPOSE:
+
 Dopo la generazione dei vari file jar da inserire nella cartella docker compose:
+
+docker network create mobile_net
 
 sudo docker-compose up -d
