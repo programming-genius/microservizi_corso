@@ -52,6 +52,7 @@ sudo docker run --net mobile_net -d -p 87:80 --name hystrix-dashboard hystrix-da
 
 
 UTILIZZO DOCKER COMPOSE:
+
 Dopo la compilazione dei file jar dei vari progetti da inserire nelle cartelle.
 
 Dopo la generazione dei vari file jar da inserire nella cartella docker compose:
