@@ -24,12 +24,12 @@ public class RegistrationController {
     @Value("${sim.url}")
     private String SIM_URL;
 
-    @HystrixCommand(fallbackMethod = "serviceUnavailable", commandProperties = {
-            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value = "2000"),
+    /*@HystrixCommand(fallbackMethod = "serviceUnavailable", commandProperties = {
+            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value = "12000"),
             @HystrixProperty(name="circuitBreaker.requestVolumeThreshold", value = "30"),
             @HystrixProperty(name="circuitBreaker.errorThresholdPercentage", value = "25"),
             @HystrixProperty(name="metrics.rollingStats.timeInMilliseconds", value = "20000")
-    })
+    })*/
     @PostMapping(value="/registration", consumes="application/json", produces="application/json")
     public ResponseEntity<RegistrationResponseDTO> create(@RequestBody RegistrationDTO user,
                                                           @RequestHeader("Authorization")
@@ -65,13 +65,13 @@ public class RegistrationController {
                 businessUserDTO.getStatusCode());
     }
 
-    public ResponseEntity<RegistrationResponseDTO> serviceUnavailable(RegistrationDTO user,
+    /*public ResponseEntity<RegistrationResponseDTO> serviceUnavailable(RegistrationDTO user,
                                                                       String authorization){
         RegistrationResponseDTO businessUserDTO = new RegistrationResponseDTO();
         businessUserDTO.setError("Servizio non raggiungibile");
         businessUserDTO.setUser(user.getUser());
         return new ResponseEntity<RegistrationResponseDTO>(businessUserDTO, HttpStatus.SERVICE_UNAVAILABLE);
-    }
+    }*/
 
     private ResponseEntity<RegistrationResponseDTO> checkUser(ResponseEntity<BusinessUserDTO> businessUserDTO){
         if(businessUserDTO.getStatusCode()!=HttpStatus.CREATED){
